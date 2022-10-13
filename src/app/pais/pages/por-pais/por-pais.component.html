@@ -12,15 +12,32 @@
       </app-pais-input>
     </div>
   </div>
-</div>
 
-<hr />
-<div *ngIf="hayError" class="alert alert-danger">
-  No se encontró nada con el término {{ termino }}.
-</div>
+  <ul *ngIf="mostrarSugerencias" class="list-group">
+    <li
+      class="list-group-item list-group-item-action"
+      *ngFor="let pais of paisesSugeridos"
+    >
+      <a class="nav-link" [routerLink]="['/pais', pais.cca2]">
+        {{ pais.capital }}, {{ pais.name.common }}
+      </a>
+    </li>
+    <li
+      class="list-group-item list-group-item-action"
+      (click)="buscarSugerido(termino)"
+    >
+      <a class="nav-link"> Buscar "{{ termino }}" </a>
+    </li>
+  </ul>
 
-<div *ngIf="paises.length > 0" class="row">
-  <div class="col">
-    <app-pais-tabla [paises]="paises"></app-pais-tabla>
+  <hr />
+  <div *ngIf="hayError" class="alert alert-danger">
+    No se encontró nada con el término {{ termino }}.
+  </div>
+
+  <div *ngIf="paises.length > 0" class="row">
+    <div class="col">
+      <app-pais-tabla [paises]="paises"></app-pais-tabla>
+    </div>
   </div>
 </div>
